@@ -1,7 +1,7 @@
-//----------------Interface de la classe <LogManager> (fichier LogManager.h)----------------//
+//----------------Interface de la classe <ReferentData> (fichier ReferentData.h)----------------//
 
-#if !defined LOGMANAGER_H
-#define LOGMANAGER_H
+#if !defined REFERENTDATA_H
+#define REFERENTDATA_H
 
 //-------------------------------------------------------- Interfaces utilisées
 
@@ -13,7 +13,7 @@
 // Description :
 //------------------------------------------------------------------------//
 
-class LogManager
+class ReferentData
 {
 //----------------------------------------------------------------- PUBLIC
 public:
@@ -23,11 +23,11 @@ public:
 //---------------------------------------------------------------Surcharge d'opérateurs
 
 //-----------------------------------------------------Constructeurs - Destructeur
-    LogManager ( );
+    ReferentData ( );
     // Mode d'emploi (Constructeur par défaut) :
     // Contrat :
 
-    virtual ~LogManager ( );
+    virtual ~ReferentData ( );
     // Mode d'emploi :
     // Contrat :
 
