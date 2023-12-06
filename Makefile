@@ -1,6 +1,6 @@
 CPPFLAGS = -g -Wall -ansi -pedantic -std=c++11
 EXE = prog
-OBJ =  main.o Stats.o Log.o
+OBJ =  main.o Stats.o Log.o LogManager.o
 GCC = g++
 
 all: $(EXE)
@@ -10,6 +10,9 @@ $(EXE): $(OBJ)
 
 main.o: main.cpp
 	$(GCC) -c main.cpp $(CPPFLAGS)
+
+LogManager.o: LogManager.cpp
+	$(GCC) -c LogManager.cpp $(CPPFLAGS)
 
 Log.o: Log.h Log.cpp
 	$(GCC) -c Log.cpp $(CPPFLAGS)
