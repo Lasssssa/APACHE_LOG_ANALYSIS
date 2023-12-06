@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface du module <log> (fichier log.h) -------------------
-#if ! defined ( log_H )
-#define log_H
+#if ! defined ( LOG_H )
+#define LOG_H
 
 //------------------------------------------------------------------------
 // Rôle du module <log>
@@ -31,4 +31,4 @@
 // Contrat :
 //
 
-#endif // log_H
+#endif // l
