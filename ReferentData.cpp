@@ -12,6 +12,23 @@
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
+ReferentData::ReferentData ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <ReferentData>" << endl;
+#endif
+}
+
+ReferentData::~ReferentData ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <ReferentData>" << endl;
+#endif
+}
 
 //----------------------------------------------------- Méthodes publiques
 

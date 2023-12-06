@@ -12,6 +12,23 @@
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
+LogManager::LogManager ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <LogManager>" << endl;
+#endif
+}
+
+LogManager::~LogManager ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <LogManager>" << endl;
+#endif
+}
 
 //----------------------------------------------------- Méthodes publiques
 
