@@ -1,0 +1,16 @@
+#Ignore IDE files
+/.idea/*
+/.vscode/*
+
+#Ignore .o files
+*.o
+
+#Ignore .exe files
+*.exe
+prog
+
+#Ignore .txt et log files
+*.txt
+*.log
+
+
