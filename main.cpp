@@ -5,5 +5,8 @@
 
 int main(int argc, char const *argv[])
 {
+    LogManager logManager;
+    Stats stats;
+    logManager.FillLog(stats);
     return 0;
 }
