@@ -1,11 +1,14 @@
 //----------------Interface de la classe <LogManager> (fichier LogManager.h)----------------//
 
-#if !defined LOGMANAGER_H
+#ifndef LOGMANAGER_H
 #define LOGMANAGER_H
 
-//-------------------------------------------------------- Interfaces utilisées
+#include <fstream>
+#include "Stats.h"
 
-//------------------------------------------------------------- Constantes
+using namespace std;
+
+//-------------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------------ Types
 //------------------------------------------------------------------------//
@@ -13,30 +16,42 @@
 // Description :
 //------------------------------------------------------------------------//
 
-class LogManager
+class LogManager : public ifstream 
 {
 //----------------------------------------------------------------- PUBLIC
 public:
 //-----------------------------------------------------------------Méthodes publiques
 
+    void FillLog(Stats & stats);
+    // Mode d'emploi :
+    // Contrat :
 
 //---------------------------------------------------------------Surcharge d'opérateurs
 
 //-----------------------------------------------------Constructeurs - Destructeur
-    LogManager ( );
+
+    LogManager();
+
+    LogManager(const char* file);
     // Mode d'emploi (Constructeur par défaut) :
     // Contrat :
 
-    virtual ~LogManager ( );
+    virtual ~LogManager();
     // Mode d'emploi :
     // Contrat :
+
+    
+
 
 //------------------------------------------------------------------ PRIVE
 protected:
 //-----------------------------------------------------------Méthodes protégées
 
-//-------------------------------------------------------------Attributs protégés
+    void FormatLog (  );
 
+
+//-------------------------------------------------------------Attributs protégés
+    ifstream LogFile;
 
 };
 
