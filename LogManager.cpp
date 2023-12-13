@@ -74,9 +74,6 @@ std::string ligne;
             bool skip = false;
             int compt = 0;
             while (std::getline(iss, mot, '"')) {
-
-                
-
                 if (!mot.empty()) {
                     if (compt == 0) {
                         parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
