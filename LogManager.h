@@ -47,8 +47,6 @@ public:
 protected:
 //-----------------------------------------------------------Méthodes protégées
 
-    void FormatLog (  );
-
     inline void parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets);
 
     inline void parse_request(const std::string& line, std::string& request, std::string& target);
