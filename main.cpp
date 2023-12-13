@@ -5,6 +5,24 @@
 
 using namespace std;
 
+string ChangeExtensionDotInPng(string name)
+{
+    string newName = "";
+    for(int i = 0; i < name.size(); i++)
+    {
+        if(name[i] == '.')
+        {
+            newName += ".png";
+            return newName;
+        }
+        else
+        {
+            newName += name[i];
+        }
+    }
+    return newName;
+}
+
 int main(int argc, char const *argv[])
 {
     bool hourBool = false;
@@ -47,7 +65,8 @@ int main(int argc, char const *argv[])
     if(graphBool)
     {
         stats.CreateGraph(graph);
-        system(("dot -Tpng -o out.png " + graph).c_str());
+        string out = ChangeExtensionDotInPng(graph);
+        system(("dot -Tpng -o "+ out + " " + graph).c_str());
     }
     else
     {

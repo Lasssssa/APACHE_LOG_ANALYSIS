@@ -63,7 +63,7 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
 //
 {
 
-std::string ligne;
+    std::string ligne;
         while (std::getline(LogFile, ligne)) {
             std::istringstream iss(ligne);
             std::string mot;
@@ -95,9 +95,21 @@ std::string ligne;
                     compt++;
                 }
             }
-            //cout << request << endl;
-            Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
-            stats.AddLog(log);
+            if(heurebool)
+            {
+                //Ajoute 1h à l'heure hour
+                int hourInt = stoi(hour);
+                int heureInt = stoi(heure);
+                if(heureInt < hourInt || heureInt > hourInt + 1)
+                {
+                    Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+                    stats.AddLog(log);
+                }
+            }else{
+                Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+                stats.AddLog(log);
+            }
+
         }
 
 }
