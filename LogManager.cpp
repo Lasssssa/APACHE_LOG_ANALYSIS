@@ -63,14 +63,7 @@ void LogManager::FillLog ( Stats & stats )
 //
 {
 
-FormatLog();
-//stats.AddLog(log);
-
-}
-
-void LogManager::FormatLog()
-{
-    std::string ligne;
+std::string ligne;
         while (std::getline(LogFile, ligne)) {
             std::istringstream iss(ligne);
             std::string mot;
@@ -102,9 +95,10 @@ void LogManager::FormatLog()
             }
             //cout << request << endl;
             Log log(ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent);
+            stats.AddLog(log);
         }
-}
 
+}
 
 
 
