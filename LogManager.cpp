@@ -4,6 +4,7 @@
 #include "LogManager.h"
 #include "Log.h"
 #include "Stats.h"
+#include "Reader.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -18,32 +19,13 @@ using namespace std;
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-LogManager::LogManager ( )
+LogManager::LogManager(const string file, string serveur, bool exportDot, bool HourBool, int Hour, bool excludeFile) : reader(file,serveur), stats(), exportDot(exportDot), HourBool(HourBool), Hour(Hour), excludeFile(excludeFile)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de <LogManager>" << endl;
 #endif
-} //----- Fin de LogManager
-
-LogManager::LogManager ( const string file )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <LogManager>" << endl;
-#endif
-LogFile.open(file);
-
-if (LogFile.good())
-{
-    cout << "Le fichier de log a bien été chargé." << endl;
-}
-else
-{
-    cout << "Le fichier de log n'a pas pu être chargé." << endl;
-}
 }
 
 LogManager::~LogManager ( )
@@ -53,71 +35,98 @@ LogManager::~LogManager ( )
 #ifdef MAP
     cout << "Appel au destructeur de <LogManager>" << endl;
 #endif
-LogFile.close();
 }
 
-
-
-void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, string hour)
-// Algorithme :
-//
+void LogManager::TreatLog()
 {
-    std::string ligne;
-        while (std::getline(LogFile, ligne)) {
-            std::istringstream iss(ligne);
-            std::string mot;
-            bool skip = false;
-            std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
-            std::string jour, mois, annee, heure, minute, seconde;
-
-            int compt = 0;
-            while (std::getline(iss, mot, '"')) {
-                if (!mot.empty()) {
-                    if (compt == 0) {
-                        parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
-                        parse_date(date, jour, mois, annee, heure, minute, seconde);
-                    }
-                    if (compt == 1) {
-                        parse_request(mot, request, target);
-                        if (excludeFile) {
-                            if (target.find(".css") != string::npos || target.find(".js") != string::npos ||
-                                target.find(".png") != string::npos || target.find(".jpg") != std::string::npos ||
-                                target.find(".ico") != std::string::npos || target.find(".gif") != std::string::npos ||
-                                target.find(".svg") != std::string::npos) {
-                                skip = true;
-                            }
-
-                        }
-                    }
-                    if (compt == 2) {
-                        parse_status_quantity(mot, status, quantity);
-                    }
-                    if (compt == 3) {
-                        url = mot;
-                    }
-                    if (compt == 5) {
-                        userAgent = mot;
-                    }
-                    compt++;
-                }
+    while(reader.good()){
+        Log log = reader.ReadLog();
+        if(excludeFile){
+            if(log.target.find(".css") != string::npos || log.target.find(".js") != string::npos || log.target.find(".png") != string::npos || log.target.find(".jpg") != std::string::npos || log.target.find(".ico") != string::npos || log.target.find(".gif") != string::npos || log.target.find(".svg") != string::npos){
+                continue;
             }
-            if (heurebool) {
-                //Ajoute 1h à l'heure hour
-                int hourInt = stoi(hour);
-                int heureInt = stoi(heure);
-                if (heureInt >= hourInt && heureInt < hourInt + 1 && !skip) {
-                    Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url,
-                            userAgent);
-                    stats.AddLog(log);
-                }
-            } else if(!skip){
-                Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+        }
+        if(HourBool){
+            //Ajoute 1h à l'heure hour
+            int hourInt = Hour;
+            int heureInt = stoi(log.hour);
+            if (heureInt >= hourInt && heureInt < hourInt + 1) {
                 stats.AddLog(log);
             }
-
         }
-
+        else{
+            stats.AddLog(log);
         }
+    }
+}
+
+//void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, string hour)
+//// Algorithme :
+////
+//{
+//    string serveur = "http://intranet-if.insa-lyon.fr";
+//    std::string ligne;
+//        while (std::getline(LogFile, ligne)) {
+//            std::istringstream iss(ligne);
+//            std::string mot;
+//            bool skip = false;
+//            std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
+//            std::string jour, mois, annee, heure, minute, seconde;
+//
+//            int compt = 0;
+//            while (std::getline(iss, mot, '"')) {
+//                if (!mot.empty()) {
+//                    if (compt == 0) {
+//                        parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
+//                        parse_date(date, jour, mois, annee, heure, minute, seconde);
+//                    }
+//                    if (compt == 1) {
+//                        parse_request(mot, request, target);
+//                        if (excludeFile) {
+//                            if (target.find(".css") != string::npos || target.find(".js") != string::npos ||
+//                                target.find(".png") != string::npos || target.find(".jpg") != std::string::npos ||
+//                                target.find(".ico") != std::string::npos || target.find(".gif") != std::string::npos ||
+//                                target.find(".svg") != std::string::npos) {
+//                                skip = true;
+//                            }
+//
+//                        }
+//                    }
+//                    if (compt == 2) {
+//                        parse_status_quantity(mot, status, quantity);
+//                    }
+//                    if (compt == 3) {
+//                        //On souhaite retirer le serveur de l'url : http://intranet-if.insa-lyon.fr
+//                        if(mot.find(serveur) != string::npos){
+//                            url = mot.substr(serveur.length(), mot.length());
+//                        }
+//                        else{
+//                            url = mot;
+//                        }
+//                    }
+//                    if (compt == 5) {
+//                        userAgent = mot;
+//                    }
+//                    compt++;
+//                }
+//            }
+//            if (heurebool) {
+//                //Ajoute 1h à l'heure hour
+//                int hourInt = stoi(hour);
+//                int heureInt = stoi(heure);
+//                if (heureInt >= hourInt && heureInt < hourInt + 1 && !skip) {
+//                    Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url,
+//                            userAgent);
+//                    stats.AddLog(log);
+//                }
+//            } else if(!skip){
+//                Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+//                stats.AddLog(log);
+//            }
+//
+//        }
+//*
+//        }
 
 
 
@@ -127,64 +136,3 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
-void LogManager::parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets) {
-    std::istringstream iss(line);
-    
-    // Lecture des valeurs séparées par des espaces
-    iss >> ip >> firstDash >> secondDash;
-
-    // Lecture de la partie entre crochets en considérant le reste de la ligne
-    std::getline(iss, inBrackets, ']');
-    // Supprimer l'espace après '['
-    inBrackets.erase(0, 2);
-}
-
-void LogManager::parse_status_quantity(const std::string& line, std::string& status, std::string& quantity) {
-    std::istringstream iss(line);
-    
-    // Lecture des valeurs séparées par des espaces
-    iss >> status >> quantity;
-}
-
-void LogManager::parse_request(const std::string& line, std::string& request, std::string& target) {
-    std::istringstream iss(line);
-    
-    // Lecture des valeurs séparées par des espaces
-    iss >> request >> target;
-}
-
-void LogManager::parse_date(std::string& date, std::string& jour, std::string& mois, std::string& annee, std::string& heure, std::string& minute, std::string& seconde) {
-    std::istringstream iss(date);
-    string decompose_date, decompose_heure;
-    int compt = 0;
-    while (std::getline(iss, decompose_date, '/')) {
-        if (compt == 0) {
-            jour = decompose_date;
-        }
-        if (compt == 1) {
-            mois = decompose_date;
-        }
-        if (compt == 2) {
-            std::istringstream iss2(decompose_date);
-            int compt2 = 0;
-            while (std::getline(iss2, decompose_heure, ':')) {
-                if (compt2 == 0) {
-                    annee = decompose_heure;
-                }
-                if (compt2 == 1) {
-                    heure = decompose_heure;
-                }
-                if (compt2 == 2) {
-                    minute = decompose_heure;
-                }
-                if (compt2 == 3) {
-                    std::istringstream iss3(decompose_heure);
-                    iss3 >> seconde;
-                }
-                compt2++;
-            }
-        }
-        compt++;
-    }
-}

@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include "Stats.h"
+#include "Reader.h"
 
 using namespace std;
 
@@ -22,19 +23,16 @@ class LogManager : public ifstream
 public:
 //-----------------------------------------------------------------Méthodes publiques
 
-    void FillLog(Stats & stats, bool excludeFile = false, bool heurebool = false, string hour = "");
+    void TreatLog();
     // Mode d'emploi :
     // Contrat :
 
+    Stats GetStats() { return stats; }
 //---------------------------------------------------------------Surcharge d'opérateurs
 
 //-----------------------------------------------------Constructeurs - Destructeur
 
-    LogManager();
-
-    LogManager(const string file);
-    // Mode d'emploi (Constructeur par défaut) :
-    // Contrat :
+    LogManager(const string file, string serveur, bool exportDot = false, bool HourBool = false, int Hour = 0, bool excludeFile = false);
 
     virtual ~LogManager();
     // Mode d'emploi :
@@ -47,18 +45,15 @@ public:
 protected:
 //-----------------------------------------------------------Méthodes protégées
 
-    inline void parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets);
-
-    inline void parse_request(const std::string& line, std::string& request, std::string& target);
-    
-    inline void parse_status_quantity(const std::string& line, std::string& status, std::string& quantity);
-
-    inline void parse_date(std::string& date, std::string& jour, std::string& mois, std::string& annee, std::string& heure, std::string& minute, std::string& seconde);
-
 //------------------------------------------------
 
 //-------------------------------------------------------------Attributs protégés
-    ifstream LogFile;
+    Reader reader;
+    Stats stats;
+    bool exportDot;
+    bool HourBool;
+    int Hour;
+    bool excludeFile;
 
 };
 

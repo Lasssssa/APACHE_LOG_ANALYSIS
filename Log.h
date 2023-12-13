@@ -22,6 +22,7 @@ class Log
 public:
 //-----------------------------------------------------------------Méthodes publiques
 
+    friend class LogManager;
     string GetIp();
     // Mode d'emploi :
     // Contrat :

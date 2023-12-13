@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     bool excludeFileBool = false;
 
     string graph;
-    string hour;
+    string hour = "0";
     string logFile;
 
     for(int i = 0; i < argc; i++)
@@ -58,15 +58,15 @@ int main(int argc, char const *argv[])
         }
     }
 
-    Stats stats;
-    LogManager logManager(logFile);
-    logManager.FillLog(stats, excludeFileBool, hourBool, hour);
+    string serveur = "http://intranet-if.insa-lyon.fr";
+    LogManager logManager(logFile, serveur, graphBool, hourBool, stoi(hour), excludeFileBool);
+    logManager.TreatLog();
 
-    stats.PrintTop10();
+    logManager.GetStats().PrintTop10();
 
     if(graphBool)
     {
-        stats.CreateGraph(graph);
+        logManager.GetStats().CreateGraph(graph);
         string out = ChangeExtensionDotInPng(graph);
         system(("dot -Tpng -o "+ out + " " + graph).c_str());
     }
