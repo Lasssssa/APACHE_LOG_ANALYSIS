@@ -5,6 +5,8 @@
 
 using namespace std;
 
+using namespace std;
+
 int main(int argc, char const *argv[])
 {
     bool hourBool = false;
@@ -63,7 +65,6 @@ int main(int argc, char const *argv[])
         }
     }
 
->>>>>>> ba45b5d38637b33a84478b5ca0976f8f1a41e433
     Stats stats;
     LogManager logManager(logFile);
     logManager.FillLog(stats, excludeFileBool, hourBool, hour);
