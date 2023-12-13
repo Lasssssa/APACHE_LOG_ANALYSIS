@@ -9,12 +9,16 @@ int main(int argc, char const *argv[])
     bool graphBool = false;
     bool excludeFileBool = false;
 
+    string graph;
+    string hour;
+    string logFile;
+
     for(int i = 0; i < argc; i++)
     {
         if (argv[i] == "-g")
         {
             graphBool = true;
-            string graph = argv[i+1];
+            graph = argv[i+1];
         }
         if(argv[i] == "-e")
         {
@@ -23,17 +27,27 @@ int main(int argc, char const *argv[])
         if(argv[i] == "-t")
         {
             hourBool = true;
-            string hour = argv[i+1];
+            hour = argv[i+1];
         }
         if(i == argc-1)
         {
-            string logFile = argv[i];
+            logFile = argv[i];
         }
     }
     Stats stats;
-    LogManager logManager(logFile, excludeFileBool, hourBool, hour);
+    LogManager logManager(logFile);
+    logManager.FillLog(stats, excludeFileBool, hourBool, hour);
 
-    stats.printTop10();
+    //stats.PrintTop10();
+
+//    if(graphBool)
+//    {
+//        stats.CreateGraph(graph);
+//    }
+//    else
+//    {
+//        cout << "Pas de graphique demandé" << endl;
+//    }
 
 
     return 0;

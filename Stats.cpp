@@ -72,9 +72,9 @@ void Stats::PrintTop10() {
 
 
 //Exporte le graph au format .dot avec tout les trajets
-void Stats::CreateGraph() {
+void Stats::CreateGraph(string name) {
 ofstream graphFile;
-    graphFile.open("graph.dot");
+    graphFile.open(name);
     graphFile << "digraph {" << endl;
     for (auto it = mapTarget.begin(); it != mapTarget.end(); it++) {
         for (auto it2 = it->second.mapReferer.begin(); it2 != it->second.mapReferer.end(); it2++) {

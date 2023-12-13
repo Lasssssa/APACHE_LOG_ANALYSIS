@@ -30,7 +30,7 @@ public:
 
     void PrintTop10();
 
-    void CreateGraph();
+    void CreateGraph(string name);
 
 
 //---------------------------------------------------------------Surcharge d'opérateurs
