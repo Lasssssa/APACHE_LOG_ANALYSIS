@@ -26,14 +26,13 @@ class Stats
 public:
 //-----------------------------------------------------------------Méthodes publiques
 
-    void AddLog(Log log);
-
     void PrintTop10();
 
     void CreateGraph(string name);
 
 
 //---------------------------------------------------------------Surcharge d'opérateurs
+    Stats& operator<<(Log log);
 
 //-----------------------------------------------------Constructeurs - Destructeur
     Stats ( );

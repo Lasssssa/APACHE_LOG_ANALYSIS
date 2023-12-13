@@ -7,4 +7,6 @@
 
 std::string ChangeExtensionDotInPng(std::string name);
 
+std::string getServeurFromConfigFile(std::string configFile);
+
 #endif // !defined CLASSE_H

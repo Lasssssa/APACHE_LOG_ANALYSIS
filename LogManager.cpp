@@ -52,11 +52,11 @@ void LogManager::TreatLog()
             int hourInt = Hour;
             int heureInt = stoi(log.hour);
             if (heureInt >= hourInt && heureInt < hourInt + 1) {
-                stats.AddLog(log);
+                stats << log;
             }
         }
         else{
-            stats.AddLog(log);
+            stats << log;
         }
     }
 }

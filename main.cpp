@@ -1,8 +1,7 @@
 #include "LogManager.h"
 #include "FonctionsAnnexe.h"
 #include <iostream>
-
-using namespace std;
+#include <string>
 
 int main(int argc, char const *argv[])
 {
@@ -10,8 +9,8 @@ int main(int argc, char const *argv[])
     bool graphBool = false;
     bool excludeFileBool = false;
 
-    string graph, logFile;
-    string hour = "0";
+    std::string graph, logFile;
+    std::string hour = "0";
 
     if(argc < 2)
     {
@@ -22,7 +21,7 @@ int main(int argc, char const *argv[])
 
     for(int i = 0; i < argc; i++)
     {
-        string param = argv[i];
+        std::string param = argv[i];
         if (param == "-g")
         {
             graphBool = true;
@@ -43,20 +42,16 @@ int main(int argc, char const *argv[])
         }
     }
 
-    string serveur = "http://intranet-if.insa-lyon.fr";
-    LogManager logManager(logFile, serveur, graphBool, hourBool, stoi(hour), excludeFileBool);
+    std::string server = getServeurFromConfigFile("config.txt");
+    LogManager logManager(logFile, server, graphBool, hourBool, stoi(hour), excludeFileBool);
     logManager.TreatLog();
 
     logManager.GetStats().PrintTop10();
-
-    if(graphBool)
-    {
+    if(graphBool){
         logManager.GetStats().CreateGraph(graph);
         string out = ChangeExtensionDotInPng(graph);
         system(("dot -Tpng -o "+ out + " " + graph).c_str());
-    }
-    else
-    {
+    }else{
         cout << "Pas de graphique demandé" << endl;
     }
 

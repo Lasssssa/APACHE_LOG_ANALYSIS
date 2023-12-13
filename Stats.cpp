@@ -11,6 +11,26 @@
 
 //----------------------------------------------------------------- PUBLIC
 //------------------------------------------------- Surcharge d'opérateurs
+Stats& Stats::operator<<(Log log)
+// Algorithme :
+//
+{
+    string target = log.GetTarget();
+    string referer = log.GetReferer();
+    if (mapTarget.find(target) == mapTarget.end()) {
+        ReferentData referentData;
+        referentData.mapReferer.insert(pair<string, int>(referer, 1));
+        mapTarget.insert(pair<string, ReferentData>(target, referentData));
+    }else {
+        mapTarget[target].nbHitsTotal++;
+        if (mapTarget[target].mapReferer.find(referer) == mapTarget[target].mapReferer.end()) {
+            mapTarget[target].mapReferer.insert(pair<string, int>(referer, 1));
+        } else {
+            mapTarget[target].mapReferer[referer]++;
+        }
+    }
+    return *this;
+} //----- Fin de operator <<
 
 //-------------------------------------------- Constructeurs - destructeur
 Stats::Stats ()
@@ -33,23 +53,6 @@ Stats::~Stats ( )
 }
 
 //----------------------------------------------------- Méthodes publiques
-
-void Stats::AddLog(Log log) {
-    string target = log.GetTarget();
-    string referer = log.GetReferer();
-    if (mapTarget.find(target) == mapTarget.end()) {
-        ReferentData referentData;
-        referentData.mapReferer.insert(pair<string, int>(referer, 1));
-        mapTarget.insert(pair<string, ReferentData>(target, referentData));
-    }else {
-        mapTarget[target].nbHitsTotal++;
-        if (mapTarget[target].mapReferer.find(referer) == mapTarget[target].mapReferer.end()) {
-            mapTarget[target].mapReferer.insert(pair<string, int>(referer, 1));
-        } else {
-            mapTarget[target].mapReferer[referer]++;
-        }
-    }
-}
 
 void Stats::PrintTop10() {
     vector<pair<string, int>> top10;

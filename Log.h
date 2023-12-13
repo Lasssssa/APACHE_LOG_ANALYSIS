@@ -130,7 +130,6 @@ protected:
     string referer;
     string userAgent;
 
-
 };
 
 //-------------------------------- Autres définitions dépendantes de <Classe>
