@@ -81,6 +81,15 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
                     }
                     if (compt == 1) {
                         parse_request(mot, request, target);
+                        if (excludeFile) {
+                            if (target.find(".css") != string::npos || target.find(".js") != string::npos ||
+                                target.find(".png") != string::npos || target.find(".jpg") != std::string::npos ||
+                                target.find(".ico") != std::string::npos || target.find(".gif") != std::string::npos ||
+                                target.find(".svg") != std::string::npos) {
+                                skip = true;
+                            }
+
+                        }
                     }
                     if (compt == 2) {
                         parse_status_quantity(mot, status, quantity);
@@ -95,24 +104,23 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
                     compt++;
                 }
             }
-            if(heurebool)
-            {
+            if (heurebool) {
                 //Ajoute 1h à l'heure hour
                 int hourInt = stoi(hour);
                 int heureInt = stoi(heure);
-                if(heureInt < hourInt || heureInt > hourInt + 1)
-                {
-                    Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+                if (heureInt < hourInt || heureInt > hourInt + 1) {
+                    Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url,
+                            userAgent);
                     stats.AddLog(log);
                 }
-            }else{
+            } else {
                 Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
                 stats.AddLog(log);
             }
 
         }
 
-}
+        }
 
 
 

@@ -23,6 +23,8 @@ string ChangeExtensionDotInPng(string name)
     return newName;
 }
 
+using namespace std;
+
 int main(int argc, char const *argv[])
 {
     bool hourBool = false;
