@@ -76,7 +76,7 @@ void LogManager::FormatLog()
             std::string mot;
             string *tab_compo[6];
 
-            std::string ip, userLogname, authenticatedUser, date, request, status, quantity, url, userAgent;
+            std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
 
             int compt = 0;
             while (std::getline(iss, mot, '"')) {
@@ -85,7 +85,7 @@ void LogManager::FormatLog()
                         parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
                     }
                     if (compt == 1) {
-                        request = mot;
+                        parse_request(mot, request, target);
                     }
                     if (compt == 2) {
                         parse_status_quantity(mot, status, quantity);
@@ -100,7 +100,8 @@ void LogManager::FormatLog()
                     compt++;
                 }
             }
-            LogFile >> ip >> userLogname >> authenticatedUser >> date >> request >> status >> quantity >> url >> userAgent;
+            //cout << request << endl;
+            Log log(ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent);
         }
 }
 
@@ -131,4 +132,11 @@ void LogManager::parse_status_quantity(const std::string& line, std::string& sta
     
     // Lecture des valeurs séparées par des espaces
     iss >> status >> quantity;
+}
+
+void LogManager::parse_request(const std::string& line, std::string& request, std::string& target) {
+    std::istringstream iss(line);
+    
+    // Lecture des valeurs séparées par des espaces
+    iss >> request >> target;
 }
