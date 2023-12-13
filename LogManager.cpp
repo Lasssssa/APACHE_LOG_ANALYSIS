@@ -70,12 +70,15 @@ std::string ligne;
             string *tab_compo[6];
 
             std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
+            string jour, mois, annee, heure, minute, seconde;
 
             int compt = 0;
             while (std::getline(iss, mot, '"')) {
                 if (!mot.empty()) {
                     if (compt == 0) {
                         parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
+                        parse_date(date, jour, mois, annee, heure, minute, seconde);
+
                     }
                     if (compt == 1) {
                         parse_request(mot, request, target);
@@ -94,8 +97,8 @@ std::string ligne;
                 }
             }
             //cout << request << endl;
-            Log log(ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent);
-            stats.AddLog(log);
+            Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+            //stats.AddLog(log);
         }
 
 }
@@ -133,4 +136,39 @@ void LogManager::parse_request(const std::string& line, std::string& request, st
     
     // Lecture des valeurs séparées par des espaces
     iss >> request >> target;
+}
+
+void LogManager::parse_date(std::string& date, std::string& jour, std::string& mois, std::string& annee, std::string& heure, std::string& minute, std::string& seconde) {
+    std::istringstream iss(date);
+    string decompose_date, decompose_heure, jour, mois, annee, heure, minute, seconde;
+    int compt = 0;
+    while (std::getline(iss, decompose_date, '/')) {
+        if (compt == 0) {
+            jour = decompose_date;
+        }
+        if (compt == 1) {
+            mois = decompose_date;
+        }
+        if (compt == 2) {
+            std::istringstream iss2(decompose_date);
+            int compt2 = 0;
+            while (std::getline(iss2, decompose_heure, ':')) {
+                if (compt2 == 0) {
+                    annee = decompose_heure;
+                }
+                if (compt2 == 1) {
+                    heure = decompose_heure;
+                }
+                if (compt2 == 2) {
+                    minute = decompose_heure;
+                }
+                if (compt2 == 3) {
+                    std::istringstream iss3(decompose_heure);
+                    iss3 >> seconde;
+                }
+                compt2++;
+            }
+        }
+        compt++;
+    }
 }
