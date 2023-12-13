@@ -108,7 +108,7 @@ std::string ligne;
             if (skip == false) {
                 Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
             }
-            //stats.AddLog(log);
+            stats.AddLog(log);
         }
 
 }
