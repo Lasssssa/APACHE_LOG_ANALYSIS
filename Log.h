@@ -103,9 +103,6 @@ public:
     // Mode d'emploi :
     // Contrat :
 
-    void print();
-
-
 //---------------------------------------------------------------Surcharge d'opérateurs
 
 //-----------------------------------------------------Constructeurs - Destructeur

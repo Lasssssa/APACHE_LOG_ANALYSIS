@@ -182,23 +182,6 @@ string Log::GetUserAgent()
     return userAgent;
 } //----- Fin de GetUserAgent
 
-void Log::print()
-// Algorithme :
-//
-{
-    string test;
-    cout << "ip : " << ip << endl;
-    cout << "userLogName : " << userLogName << endl;
-    cout << "authenticatedUser : " << authenticatedUser << endl;
-    cout << "hour : " << hour << endl;
-    cout << "request : " << request << endl;
-    cout << "target : " << target << endl;
-    cout << "status : " << status << endl;
-    cout << "dataTransferred : " << dataTransferred << endl;
-    cout << "referer : " << referer << endl;
-    cout << "userAgent : " << userAgent << endl;
-    cout << "------------------------" << endl;
-} //----- Fin de print
 
 //------------------------------------------------------------------ PRIVE
 

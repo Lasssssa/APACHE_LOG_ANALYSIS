@@ -1,27 +1,6 @@
 #include "LogManager.h"
-#include "Log.h"
+#include "FonctionsAnnexe.h"
 #include <iostream>
-#include <fstream>
-
-using namespace std;
-
-string ChangeExtensionDotInPng(string name)
-{
-    string newName = "";
-    for(int i = 0; i < name.size(); i++)
-    {
-        if(name[i] == '.')
-        {
-            newName += ".png";
-            return newName;
-        }
-        else
-        {
-            newName += name[i];
-        }
-    }
-    return newName;
-}
 
 using namespace std;
 
@@ -31,9 +10,15 @@ int main(int argc, char const *argv[])
     bool graphBool = false;
     bool excludeFileBool = false;
 
-    string graph;
+    string graph, logFile;
     string hour = "0";
-    string logFile;
+
+    if(argc < 2)
+    {
+        cout << "Pas assez d'arguments" << endl;
+        cout << "Usage : ./prog [-g graph.dot] [-t hour] [-e] logFile" << endl;
+        return 1;
+    }
 
     for(int i = 0; i < argc; i++)
     {

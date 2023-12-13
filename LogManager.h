@@ -1,13 +1,10 @@
 //----------------Interface de la classe <LogManager> (fichier LogManager.h)----------------//
 
-#ifndef LOGMANAGER_H
-#define LOGMANAGER_H
+#ifndef LOG_MANAGER_H
+#define LOG_MANAGER_H
 
-#include <fstream>
 #include "Stats.h"
 #include "Reader.h"
-
-using namespace std;
 
 //-------------------------------------------------------- Interfaces utilisées
 
