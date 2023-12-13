@@ -58,7 +58,7 @@ LogFile.close();
 
 
 
-void LogManager::FillLog ( Stats & stats )
+void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, string heure)
 // Algorithme :
 //
 {
@@ -78,7 +78,6 @@ std::string ligne;
                     if (compt == 0) {
                         parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
                         parse_date(date, jour, mois, annee, heure, minute, seconde);
-
                     }
                     if (compt == 1) {
                         parse_request(mot, request, target);

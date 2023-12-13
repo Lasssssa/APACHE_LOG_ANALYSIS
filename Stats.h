@@ -5,6 +5,13 @@
 
 //-------------------------------------------------------- Interfaces utilisées
 using namespace std;
+#include <unordered_map>
+#include <string>
+#include "Log.h"
+#include "ReferentData.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

@@ -2,6 +2,7 @@
 
 //---------------------------------------------------------------- INCLUDE
 #include "Stats.h"
+#include <algorithm>
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
@@ -33,7 +34,7 @@ Stats::~Stats ( )
 
 //----------------------------------------------------- Méthodes publiques
 
-void Stats::AddLog(int log) {
+void Stats::AddLog(Log log) {
     string target = log.GetTarget();
     string referer = log.GetReferer();
     if (mapTarget.find(target) == mapTarget.end()) {
@@ -56,28 +57,28 @@ void Stats::PrintTop10() {
     for (auto it = mapTarget.begin(); it != mapTarget.end(); it++) {
         top10.push_back(pair<string, int>(it->first, it->second.nbHitsTotal));
     }
-    sort(top10.begin(), top10.end(), [](pair<string, int> a, pair<string, int> b) {
-        return a.second > b.second;
+
+    // Tri du vecteur top10 en fonction du nombre de hits (second élément de la paire)
+    std::sort(top10.begin(), top10.end(), [](const pair<string, int> &a, const pair<string, int> &b) {
+        return a.second > b.second; // Trie par ordre décroissant du nombre de hits
     });
-    for (int i = 0; i < 10; i++) {
+
+    // Affichage des 10 premiers éléments triés
+    int limit = std::min(10, static_cast<int>(top10.size()));
+    for (int i = 0; i < limit; i++) {
         cout << top10[i].first << " (" << top10[i].second << " hits)" << endl;
     }
 }
 
+
+//Exporte le graph au format .dot avec tout les trajets
 void Stats::CreateGraph() {
 ofstream graphFile;
     graphFile.open("graph.dot");
     graphFile << "digraph {" << endl;
     for (auto it = mapTarget.begin(); it != mapTarget.end(); it++) {
-        vector<pair<string, int>> top10;
         for (auto it2 = it->second.mapReferer.begin(); it2 != it->second.mapReferer.end(); it2++) {
-            top10.push_back(pair<string, int>(it2->first, it2->second));
-        }
-        sort(top10.begin(), top10.end(), [](pair<string, int> a, pair<string, int> b) {
-            return a.second > b.second;
-        });
-        for (int i = 0; i < 10; i++) {
-            graphFile << "\"" << top10[i].first << "\" -> \"" << it->first << "\" [label=\"" << top10[i].second << "\"];" << endl;
+            graphFile << "\"" << it2->first << "\" -> \"" << it->first << "\" [label=\"" << it2->second << "\"];" << endl;
         }
     }
     graphFile << "}" << endl;

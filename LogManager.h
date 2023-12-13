@@ -22,7 +22,7 @@ class LogManager : public ifstream
 public:
 //-----------------------------------------------------------------Méthodes publiques
 
-    void FillLog(Stats & stats);
+    void FillLog(Stats & stats, bool excludeFile = false, bool heurebool = false, string heure = "");
     // Mode d'emploi :
     // Contrat :
 

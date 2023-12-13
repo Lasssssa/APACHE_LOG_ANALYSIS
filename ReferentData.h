@@ -4,7 +4,8 @@
 #define REFERENTDATA_H
 
 //------------------------------------------------------------------- Interfaces utilisées
-
+#include "Log.h"
+#include <unordered_map>
 //------------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------- Types
@@ -30,6 +31,8 @@ public:
     virtual ~ReferentData ( );
     // Mode d'emploi :
     // Contrat :
+
+    friend class Stats;
 
 //------------------------------------------------------------------ PRIVE
 protected:
