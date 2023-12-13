@@ -71,9 +71,12 @@ std::string ligne;
 
             std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
             std::string jour, mois, annee, heure, minute, seconde;
-
+            bool skip = false;
             int compt = 0;
             while (std::getline(iss, mot, '"')) {
+
+                
+
                 if (!mot.empty()) {
                     if (compt == 0) {
                         parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
@@ -81,6 +84,12 @@ std::string ligne;
                     }
                     if (compt == 1) {
                         parse_request(mot, request, target);
+                        if (excludeFile) {
+                            if (target.find(".css") != string::npos || target.find(".js") != string::npos || target.find(".png") != string::npos || target.find(".jpg") != std::string::npos || target.find(".ico") != std::string::npos || target.find(".gif") != std::string::npos || target.find(".svg") != std::string::npos ) {
+                                skip = true;
+                            }
+                        
+                        }
                     }
                     if (compt == 2) {
                         parse_status_quantity(mot, status, quantity);
@@ -96,7 +105,9 @@ std::string ligne;
                 }
             }
             //cout << request << endl;
-            Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+            if (skip == false) {
+                Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
+            }
             //stats.AddLog(log);
         }
 

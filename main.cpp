@@ -6,34 +6,36 @@
 int main(int argc, char const *argv[])
 {
     bool hourBool = false;
-    bool graphBool = false;
+    // bool graphBool = false;
     bool excludeFileBool = false;
 
-    string graph;
+    // string graph;
     string hour;
     string logFile;
 
-    for(int i = 0; i < argc; i++)
-    {
-        if (argv[i] == "-g")
-        {
-            graphBool = true;
-            graph = argv[i+1];
-        }
-        if(argv[i] == "-e")
-        {
-            excludeFileBool = true;
-        }
-        if(argv[i] == "-t")
-        {
-            hourBool = true;
-            hour = argv[i+1];
-        }
-        if(i == argc-1)
-        {
-            logFile = argv[i];
-        }
-    }
+    // for(int i = 0; i < argc; i++)
+    // {
+    //     if (argv[i] == "-g")
+    //     {
+    //         graphBool = true;
+    //         graph = argv[i+1];
+    //     }
+    //     if(argv[i] == "-e")
+    //     {
+    //         excludeFileBool = true;
+    //     }
+    //     if(argv[i] == "-t")
+    //     {
+    //         hourBool = true;
+    //         hour = argv[i+1];
+    //     }
+    //     if(i == argc-1)
+    //     {
+    //         logFile = argv[i];
+    //     }
+    // }
+    logFile = argv[1];
+    cout << logFile << endl;
     Stats stats;
     LogManager logManager(logFile);
     logManager.FillLog(stats, excludeFileBool, hourBool, hour);
