@@ -62,13 +62,11 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
 // Algorithme :
 //
 {
-
     std::string ligne;
         while (std::getline(LogFile, ligne)) {
             std::istringstream iss(ligne);
             std::string mot;
-            string *tab_compo[6];
-
+            bool skip = false;
             std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
             std::string jour, mois, annee, heure, minute, seconde;
 
@@ -100,7 +98,6 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
                     if (compt == 5) {
                         userAgent = mot;
                     }
-                    tab_compo[compt] = new string(mot);
                     compt++;
                 }
             }
@@ -108,7 +105,7 @@ void LogManager::FillLog ( Stats & stats, bool excludeFile, bool heurebool, stri
                 //Ajoute 1h à l'heure hour
                 int hourInt = stoi(hour);
                 int heureInt = stoi(heure);
-                if (heureInt < hourInt || heureInt > hourInt + 1) {
+                if (heureInt >= hourInt && heureInt < hourInt + 1 && !skip) {
                     Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url,
                             userAgent);
                     stats.AddLog(log);

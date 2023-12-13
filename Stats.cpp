@@ -39,7 +39,6 @@ void Stats::AddLog(Log log) {
     string referer = log.GetReferer();
     if (mapTarget.find(target) == mapTarget.end()) {
         ReferentData referentData;
-        referentData.nbHitsTotal = 1;
         referentData.mapReferer.insert(pair<string, int>(referer, 1));
         mapTarget.insert(pair<string, ReferentData>(target, referentData));
     }else {

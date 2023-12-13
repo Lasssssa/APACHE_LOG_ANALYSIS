@@ -19,6 +19,7 @@ ReferentData::ReferentData ( )
 #ifdef MAP
     cout << "Appel au constructeur de <ReferentData>" << endl;
 #endif
+    nbHitsTotal = 1;
 }
 
 ReferentData::~ReferentData ( )
