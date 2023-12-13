@@ -5,6 +5,7 @@
 
 //-------------------------------------------------------- Interfaces utilisées
 #include <string>
+#include <iostream>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -100,6 +101,8 @@ public:
     void SetUserAgent(string userAgentParam);
     // Mode d'emploi :
     // Contrat :
+
+    void print();
 
 
 //---------------------------------------------------------------Surcharge d'opérateurs

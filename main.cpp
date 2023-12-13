@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 int main(int argc, char const *argv[])
 {
     bool hourBool = false;
@@ -15,16 +17,17 @@ int main(int argc, char const *argv[])
 
     for(int i = 0; i < argc; i++)
     {
-        if (argv[i] == "-g")
+        string param = argv[i];
+        if (param == "-g")
         {
             graphBool = true;
             graph = argv[i+1];
         }
-        if(argv[i] == "-e")
+        if(param == "-e")
         {
             excludeFileBool = true;
         }
-        if(argv[i] == "-t")
+        if(param == "-t")
         {
             hourBool = true;
             hour = argv[i+1];
@@ -34,20 +37,22 @@ int main(int argc, char const *argv[])
             logFile = argv[i];
         }
     }
+
     Stats stats;
     LogManager logManager(logFile);
     logManager.FillLog(stats, excludeFileBool, hourBool, hour);
 
-    //stats.PrintTop10();
+    stats.PrintTop10();
 
-//    if(graphBool)
-//    {
-//        stats.CreateGraph(graph);
-//    }
-//    else
-//    {
-//        cout << "Pas de graphique demandé" << endl;
-//    }
+    if(graphBool)
+    {
+        stats.CreateGraph(graph);
+        system(("dot -Tpng -o out.png " + graph).c_str());
+    }
+    else
+    {
+        cout << "Pas de graphique demandé" << endl;
+    }
 
 
     return 0;
