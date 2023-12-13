@@ -71,19 +71,37 @@ FormatLog();
 void LogManager::FormatLog()
 {
     std::string ligne;
-    while (std::getline(LogFile, ligne))
-    {
-        // Utiliser std::istringstream pour séparer les espaces
-        std::istringstream iss(ligne); // Use std::istringstream instead of istringstream
-        std::string mot;
+        while (std::getline(LogFile, ligne)) {
+            std::istringstream iss(ligne);
+            std::string mot;
+            string *tab_compo[6];
 
-        // Parcourir les mots dans la ligne
-        while (iss >> mot)
-        {
-            // Faire quelque chose avec le mot, par exemple l'afficher
-            std::cout << "Mot : " << mot << std::endl;
+            std::string ip, userLogname, authenticatedUser, date, request, status, quantity, url, userAgent;
+
+            int compt = 0;
+            while (std::getline(iss, mot, '"')) {
+                if (!mot.empty()) {
+                    if (compt == 0) {
+                        parse_ip_dash_date(mot, ip, userLogname, authenticatedUser, date);
+                    }
+                    if (compt == 1) {
+                        request = mot;
+                    }
+                    if (compt == 2) {
+                        parse_status_quantity(mot, status, quantity);
+                    }
+                    if (compt == 3) {
+                        url = mot;
+                    }
+                    if (compt == 5) {
+                        userAgent = mot;
+                    }
+                    tab_compo[compt] = new string(mot);
+                    compt++;
+                }
+            }
+            LogFile >> ip >> userLogname >> authenticatedUser >> date >> request >> status >> quantity >> url >> userAgent;
         }
-    }
 }
 
 
@@ -95,3 +113,22 @@ void LogManager::FormatLog()
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+void LogManager::parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets) {
+    std::istringstream iss(line);
+    
+    // Lecture des valeurs séparées par des espaces
+    iss >> ip >> firstDash >> secondDash;
+
+    // Lecture de la partie entre crochets en considérant le reste de la ligne
+    std::getline(iss, inBrackets, ']');
+    // Supprimer l'espace après '['
+    inBrackets.erase(0, 2);
+}
+
+void LogManager::parse_status_quantity(const std::string& line, std::string& status, std::string& quantity) {
+    std::istringstream iss(line);
+    
+    // Lecture des valeurs séparées par des espaces
+    iss >> status >> quantity;
+}

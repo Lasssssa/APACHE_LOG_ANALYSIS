@@ -49,6 +49,11 @@ protected:
 
     void FormatLog (  );
 
+    inline void parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets);
+
+    inline void parse_status_quantity(const std::string& line, std::string& status, std::string& quantity);
+
+//------------------------------------------------
 
 //-------------------------------------------------------------Attributs protégés
     ifstream LogFile;
