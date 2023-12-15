@@ -6,6 +6,10 @@
 #include <string>
 
 std::string ChangeExtensionDotInPng(std::string name)
+// Algorithme :
+// Parcours de la chaine de caractère name
+// Si on trouve un point, on ajoute .png à la chaine de caractère
+// Sinon on ajoute le caractère à la chaine de caractère
 {
     std::string newName = "";
     for(std::string::size_type i = 0; i < name.size(); i++)
@@ -24,6 +28,10 @@ std::string ChangeExtensionDotInPng(std::string name)
 }
 
 std::string getServeurFromConfigFile(std::string configFile)
+// Algorithme :
+// Parcours du fichier de configuration
+// Si on trouve la ligne server: on récupère le nom du serveur
+// Sinon on retourne une chaine de caractère vide
 {
     std::ifstream file(configFile);
     std::string line;

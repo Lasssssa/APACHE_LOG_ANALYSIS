@@ -5,17 +5,22 @@
 
 int main(int argc, char const *argv[])
 {
-    bool hourBool = false;
-    bool graphBool = false;
-    bool excludeFileBool = false;
+    // Création des variables pour les paramètres de la ligne de commande
+    bool hourBool, graphBool, excludeFileBool;
+    // Initialisation des variables à false
+    hourBool = false;
+    graphBool = false;
+    excludeFileBool = false;
 
+    // Initialisation des variables à 0
     std::string graph, logFile;
     std::string hour = "0";
 
+    // Vérification du nombre d'arguments passé en paramètre du programme
     if(argc < 2)
     {
         cout << "Pas assez d'arguments" << endl;
-        cout << "Usage : ./prog [-g graph.dot] [-t hour] [-e] logFile" << endl;
+        cout << "Usage : ./prog [-g name.dot] [-t hour] [-e] logFile" << endl;
         return 1;
     }
 
@@ -47,6 +52,7 @@ int main(int argc, char const *argv[])
     logManager.TreatLog();
 
     logManager.GetStats().PrintTop10();
+
     if(graphBool){
         logManager.GetStats().CreateGraph(graph);
         string out = ChangeExtensionDotInPng(graph);
@@ -54,7 +60,6 @@ int main(int argc, char const *argv[])
     }else{
         cout << "Pas de graphique demandé" << endl;
     }
-
 
     return 0;
 }

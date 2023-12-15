@@ -40,22 +40,35 @@ LogManager::~LogManager ( )
 //----------------------------------------------------- Méthodes publiques
 void LogManager::TreatLog()
 {
+    //On lit le fichier log et on traite les logs un par un
     while(reader.good()){
+        //On récupère le log courant dans la variable log grâce à la méthode ReadLog de la classe Reader
         Log log = reader.ReadLog();
+
+        //On vérifie que le log n'est pas vide
+        if(log.target == ""){
+            continue;
+        }
+
+        //On vérifie que le log ne contient pas de .css, .js, .png, .jpg, .ico, .gif, .svg si l'option excludeFile est activée
         if(excludeFile){
             if(log.target.find(".css") != string::npos || log.target.find(".js") != string::npos || log.target.find(".png") != string::npos || log.target.find(".jpg") != std::string::npos || log.target.find(".ico") != string::npos || log.target.find(".gif") != string::npos || log.target.find(".svg") != string::npos){
                 continue;
             }
         }
+
+        //On vérifie que le log est bien dans la plage horaire si l'option HourBool est activée
         if(HourBool){
             //Ajoute 1h à l'heure hour
             int hourInt = Hour;
             int heureInt = stoi(log.hour);
             if (heureInt >= hourInt && heureInt < hourInt + 1) {
+                //On ajoute le log à la liste des logs
                 stats << log;
             }
         }
         else{
+            //On ajoute le log à la liste des logs
             stats << log;
         }
     }

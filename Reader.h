@@ -37,25 +37,32 @@ public:
     // Contrat :
 
     Log ReadLog();
+    // Mode d'emploi : Lit une ligne de log et la parse pour en faire un objet Log
+    // Contrat :
 
 //------------------------------------------------------------------ PRIVE
 protected:
 //------------------------------------------------------------------Méthodes protégées
 
-    inline void parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets);
+    void parse_ip_dash_date(const std::string& line, std::string& ip, std::string& firstDash, std::string& secondDash, std::string& inBrackets);
+    // Mode d'emploi : Parse une ligne de log pour en extraire l'ip, la date et l'heure
+    // Contrat :
 
-    inline void parse_request(const std::string& line, std::string& request, std::string& target);
+    void parse_request(const std::string& line, std::string& request, std::string& target);
+    // Mode d'emploi : Parse une ligne de log pour en extraire la requête et la cible
+    // Contrat :
 
-    inline void parse_status_quantity(const std::string& line, std::string& status, std::string& quantity);
+    void parse_status_quantity(const std::string& line, std::string& status, std::string& quantity);
+    // Mode d'emploi : Parse une ligne de log pour en extraire le status et la quantité
+    // Contrat :
 
-    inline void parse_date(std::string& date, std::string& jour, std::string& mois, std::string& annee, std::string& heure, std::string& minute, std::string& seconde);
+    void parse_date(std::string& date, std::string& jour, std::string& mois, std::string& annee, std::string& heure, std::string& minute, std::string& seconde);
+    // Mode d'emploi : Parse une date pour en extraire le jour, le mois, l'année, l'heure, la minute et la seconde
+    // Contrat :
 
 //------------------------------------------------------------------Attributs protégés
     string server;
 
 };
-
-//-------------------------------- Autres définitions dépendantes de <Classe>
-
 
 #endif // !defined CLASSE_H

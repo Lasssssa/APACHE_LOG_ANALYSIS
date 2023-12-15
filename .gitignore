@@ -18,7 +18,7 @@ graph.png
 
 
 #Ignore .txt et log files
-*.txt
-*.log
+exemple-mini-non-exhaustif.txt
+anonyme.log
 
 

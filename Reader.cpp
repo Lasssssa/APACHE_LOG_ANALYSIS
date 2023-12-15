@@ -1,10 +1,10 @@
 //-------------------Réalisation de la classe <Reader> (fichier Reader.cpp)-------------------//
 
 //---------------------------------------------------------------- INCLUDE
-#include "Reader.h"
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
+#include "Reader.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -31,12 +31,14 @@ Reader::~Reader ( )
 }
 
 Log Reader::ReadLog() {
+    //On déclare les variables qui vont contenir les informations du log
     std::string mot, line;
     std::string ip, userLogname, authenticatedUser, date, request, target, status, quantity, url, userAgent;
     std::string jour, mois, annee, heure, minute, seconde;
     int compt = 0;
     std::getline(*this, line);
     std::istringstream iss(line);
+    //On récupère les informations entre guillemets et on les stocke
     while (std::getline(iss, mot, '"')) {
         if (!mot.empty()) {
             if (compt == 0) {
@@ -64,8 +66,8 @@ Log Reader::ReadLog() {
         }
 
     }
+    //On crée et retourne le log avec les informations récupérées
     Log log(ip, userLogname, authenticatedUser, heure, request, target, status, quantity, url, userAgent);
-
     return log;
 }
 //----------------------------------------------------- Méthodes publiques
