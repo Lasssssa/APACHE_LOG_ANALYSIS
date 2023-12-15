@@ -1,0 +1,2 @@
+# Fichier de configuration pour l'application
+server:http://intranet-if.insa-lyon.fr
