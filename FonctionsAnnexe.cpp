@@ -53,3 +53,38 @@ std::string getServeurFromConfigFile(std::string configFile)
     }
     return serveur;
 }
+
+std::vector<std::string> getIgnoredFileFromConfigFile(std::string configFile)
+// Algorithme :
+// Parcours du fichier de configuration
+// Si on trouve la ligne ignoredFile: on récupère le nom des fichiers à ignorer
+{
+    std::vector<std::string> ignoredFilesArray;
+    std::ifstream file(configFile);
+    std::string line;
+    if(!file)
+    {
+        std::cout << "Erreur lors de l'ouverture du fichier de configuration" << std::endl;
+        return std::vector<std::string>();
+    }
+    while(std::getline(file, line))
+    {
+        if(line[0] != '#')
+        {
+            size_t pos = line.find("ignoreFiles:");
+            if (pos != std::string::npos) {
+                std::string ignoredFiles = line.substr(pos + 12);
+                std::string delimiter = ",";
+                size_t pos = 0;
+                std::string token;
+                while ((pos = ignoredFiles.find(delimiter)) != std::string::npos) {
+                    token = ignoredFiles.substr(0, pos);
+                    ignoredFilesArray.push_back(token);
+                    ignoredFiles.erase(0, pos + delimiter.length());
+                }
+                ignoredFilesArray.push_back(ignoredFiles);
+            }
+        }
+    }
+    return ignoredFilesArray;
+}

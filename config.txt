@@ -1,2 +1,3 @@
 # Fichier de configuration pour l'application
 server:http://intranet-if.insa-lyon.fr
+ignoreFiles:js,css,png,jpg,ico,gif,svg

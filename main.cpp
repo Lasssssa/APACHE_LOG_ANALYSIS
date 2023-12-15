@@ -48,7 +48,8 @@ int main(int argc, char const *argv[])
     }
 
     std::string server = getServeurFromConfigFile("config.txt");
-    LogManager logManager(logFile, server, graphBool, hourBool, stoi(hour), excludeFileBool);
+    vector<std::string> ignoredFile = getIgnoredFileFromConfigFile("config.txt");
+    LogManager logManager(logFile, server, ignoredFile, graphBool, hourBool, stoi(hour), excludeFileBool);
     logManager.TreatLog();
 
     logManager.GetStats().PrintTop10();

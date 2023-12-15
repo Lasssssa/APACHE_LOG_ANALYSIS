@@ -29,7 +29,7 @@ public:
 
 //-----------------------------------------------------Constructeurs - Destructeur
 
-    LogManager(const string file, string serveur, bool exportDot = false, bool HourBool = false, int Hour = 0, bool excludeFile = false);
+    LogManager(const string file, string serveur, vector<std::string> ignoredFile, bool exportDot = false, bool HourBool = false, int Hour = 0, bool excludeFile = false);
 
     virtual ~LogManager();
     // Mode d'emploi :
@@ -48,6 +48,7 @@ protected:
     bool HourBool;
     int Hour;
     bool excludeFile;
+    vector<std::string> ignoredFile;
 
 };
 

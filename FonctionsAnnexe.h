@@ -4,6 +4,7 @@
 #define FONCTIONS_ANNEXE_H
 
 #include <string>
+#include <vector>
 
 std::string ChangeExtensionDotInPng(std::string name);
 //Mode d'emploi :
@@ -16,4 +17,7 @@ std::string getServeurFromConfigFile(std::string configFile);
 //Fonction qui permet de récupérer le nom du serveur dans le fichier de configuration
 //Contrat :
 //Aucun
+
+std::vector<std::string> getIgnoredFileFromConfigFile(std::string configFile);
+
 #endif // !defined CLASSE_H
