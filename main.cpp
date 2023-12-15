@@ -1,5 +1,5 @@
 #include "LogManager.h"
-#include "FonctionsAnnexe.h"
+#include "Utils.h"
 #include <iostream>
 #include <string>
 
@@ -46,9 +46,10 @@ int main(int argc, char const *argv[])
             logFile = argv[i];
         }
     }
+    Utils utilsConfig;
+    std::string server = utilsConfig.getServeurFromConfigFile("config.txt");
+    vector<std::string> ignoredFile = utilsConfig.getIgnoredFileFromConfigFile("config.txt");
 
-    std::string server = getServeurFromConfigFile("config.txt");
-    vector<std::string> ignoredFile = getIgnoredFileFromConfigFile("config.txt");
     LogManager logManager(logFile, server, ignoredFile, graphBool, hourBool, stoi(hour), excludeFileBool);
     logManager.TreatLog();
 
@@ -56,7 +57,7 @@ int main(int argc, char const *argv[])
 
     if(graphBool){
         logManager.GetStats().CreateGraph(graph);
-        string out = ChangeExtensionDotInPng(graph);
+        string out = utilsConfig.ChangeExtensionDotInPng(graph);
         system(("dot -Tpng -o "+ out + " " + graph).c_str());
     }else{
         cout << "Pas de graphique demandé" << endl;

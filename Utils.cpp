@@ -1,11 +1,42 @@
-// Description: Fonctions annexes pour le projet
+//-------------------Réalisation de la classe <Utils> (fichier Utils.cpp)-------------------//
 
-#include "FonctionsAnnexe.h"
+//---------------------------------------------------------------- INCLUDE
+#include "Utils.h"
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <sstream>
+//-------------------------------------------------------- Include système
 
-std::string ChangeExtensionDotInPng(std::string name)
+//------------------------------------------------------ Include personnel
+
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+//------------------------------------------------- Surcharge d'opérateurs
+
+//-------------------------------------------- Constructeurs - destructeur
+Utils::Utils ()
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Utils>" << endl;
+#endif
+
+} //----- Fin de Utils
+
+Utils::~Utils ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Utils>" << endl;
+#endif
+}
+
+//----------------------------------------------------- Méthodes publiques
+
+std::string Utils::ChangeExtensionDotInPng(std::string name)
 // Algorithme :
 // Parcours de la chaine de caractère name
 // Si on trouve un point, on ajoute .png à la chaine de caractère
@@ -27,7 +58,7 @@ std::string ChangeExtensionDotInPng(std::string name)
     return newName;
 }
 
-std::string getServeurFromConfigFile(std::string configFile)
+std::string Utils::getServeurFromConfigFile(std::string configFile)
 // Algorithme :
 // Parcours du fichier de configuration
 // Si on trouve la ligne server: on récupère le nom du serveur
@@ -43,18 +74,20 @@ std::string getServeurFromConfigFile(std::string configFile)
     }
     while(std::getline(file, line))
     {
-       if(line[0] != '#')
-       {
-           size_t pos = line.find("server:");
-           if (pos != std::string::npos) {
-               return line.substr(pos + 7);
-           }
-       }
+        if(line[0] != '#')
+        {
+            size_t pos = line.find("server:");
+            if (pos != std::string::npos) {
+                serveur = line.substr(pos + 7);
+            }
+        }
     }
+    //On retire le dernier caractère de la chaine de caractère qui est un espace
+    serveur = serveur.substr(0, serveur.length()-1);
     return serveur;
 }
 
-std::vector<std::string> getIgnoredFileFromConfigFile(std::string configFile)
+std::vector<std::string> Utils::getIgnoredFileFromConfigFile(std::string configFile)
 // Algorithme :
 // Parcours du fichier de configuration
 // Si on trouve la ligne ignoredFile: on récupère le nom des fichiers à ignorer
@@ -88,3 +121,7 @@ std::vector<std::string> getIgnoredFileFromConfigFile(std::string configFile)
     }
     return ignoredFilesArray;
 }
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
