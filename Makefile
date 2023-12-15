@@ -29,6 +29,10 @@ LogManager.o: LogManager.cpp LogManager.h Reader.cpp Reader.h Stats.cpp Stats.h
 FonctionsAnnexe.o: FonctionsAnnexe.cpp FonctionsAnnexe.h
 	$(GCC) -c FonctionsAnnexe.cpp $(CPPFLAGS)
 
+run:
+	make clean
+	make
+
 clean:
 	rm -f $(EXE) $(OBJ)
 
