@@ -33,6 +33,11 @@ run:
 	make clean
 	make
 
+valgrind:
+	make clean
+	make
+	valgrind --leak-check=full ./$(EXE) -t 12 -e -g test.dot exemple-mini-non-exhaustif.log
+
 clean:
 	rm -f $(EXE) $(OBJ)
 
