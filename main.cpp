@@ -6,14 +6,14 @@
 int main(int argc, char const *argv[])
 {
     // Création des variables pour les paramètres de la ligne de commande
-    bool hourBool, graphBool, excludeFileBool;
+    bool hourBool, graphBool, excludeFileBool, configBool;
     // Initialisation des variables à false
     hourBool = false;
     graphBool = false;
     excludeFileBool = false;
 
     // Initialisation des variables à 0
-    std::string graph, logFile;
+    std::string graph, logFile, config;
     std::string hour = "0";
 
     // Vérification du nombre d'arguments passé en paramètre du programme
@@ -45,10 +45,19 @@ int main(int argc, char const *argv[])
         {
             logFile = argv[i];
         }
+        if(param == "-c")
+        {
+            configBool = true;
+            config = argv[i+1];
+        }
     }
     Utils utilsConfig;
-    std::string server = utilsConfig.getServeurFromConfigFile("config.txt");
-    vector<std::string> ignoredFile = utilsConfig.getIgnoredFileFromConfigFile("config.txt");
+    if(!configBool){
+        cout << "Pas de fichier de configuration précisé : utilisation du fichier par défaut" << endl;
+        config = "config.txt";
+    }
+    std::string server = utilsConfig.getServeurFromConfigFile(config);
+    vector<std::string> ignoredFile = utilsConfig.getIgnoredFileFromConfigFile(config);
 
     LogManager logManager(logFile, server, ignoredFile, graphBool, hourBool, stoi(hour), excludeFileBool);
     logManager.TreatLog();
