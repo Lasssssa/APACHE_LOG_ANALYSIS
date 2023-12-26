@@ -41,3 +41,6 @@ valgrind:
 clean:
 	rm -f $(EXE) $(OBJ)
 
+test:
+	cd Tests && ./mktest.sh
+
