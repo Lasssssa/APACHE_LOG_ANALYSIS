@@ -1,1 +1,1 @@
-../.././prog -e -c ../../config.txt ../../anonyme.log
+../.././prog -e -c ../../config.txt ../../exemple.log

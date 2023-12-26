@@ -1,1 +1,1 @@
-../.././prog -c ../../config.txt -g test.dot -i ../../exemple-mini-non-exhaustif.txt
+../.././prog -c ../../config.txt -g test.dot -i ../../exemple.log
