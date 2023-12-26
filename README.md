@@ -46,7 +46,7 @@ This command represents the default functionality. You can also include options 
 - `sudo apt-get update`
 - `sudo apt-get upgrade`
 
-### Install C++ / QT Package | Version : Update
+### Install C++ | Version : Update
 - `sudo apt-get install cmake`
 
 ## Clone the repository Github in your linux machine

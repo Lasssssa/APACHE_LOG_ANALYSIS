@@ -1,0 +1,2 @@
+Pas assez d'arguments
+Usage : ./prog [-g name.dot] [-t hour] [-e] logFile
