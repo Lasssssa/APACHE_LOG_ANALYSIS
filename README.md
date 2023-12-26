@@ -54,11 +54,11 @@ This command represents the default functionality. You can also include options 
 - `sudo apt-get install git git-core`
 ### Clone the repository
 - Go to the directory where you want to clone the repository
-- `sudo git clone https://github.com/Lasssssa/TP3_CPP_INSA_LYON`
+- `sudo git clone https://github.com/Lasssssa/APACHE_LOG_ANALYSIS`
 
 ### Update
 - Go to the directory where you clone the repository
-- `sudo git pull https://github.com/Lasssssa/TP3_CPP_INSA_LYON`
+- `sudo git pull https://github.com/Lasssssa/APACHE_LOG_ANALYSIS`
 
 ### Other way to get the repository
 - Go to the directory where you want to clone the repository
@@ -73,4 +73,4 @@ This command represents the default functionality. You can also include options 
 - `./prog ...`
 
 ## Repertory Github :
-https://github.com/Lasssssa/TP3_CPP_INSA_LYON
+https://github.com/Lasssssa/APACHE_LOG_ANALYSIS
