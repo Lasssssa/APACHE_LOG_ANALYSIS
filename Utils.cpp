@@ -69,7 +69,7 @@ std::string Utils::getServeurFromConfigFile(std::string configFile)
     std::string serveur;
     if(!file)
     {
-        std::cout << "Erreur lors de l'ouverture du fichier de configuration" << std::endl;
+        std::cout << "[FONCTION getServeurFromConfigFile] Erreur lors de l'ouverture du fichier de configuration" << std::endl;
         return "";
     }
     while(std::getline(file, line))
@@ -97,7 +97,7 @@ std::vector<std::string> Utils::getIgnoredFileFromConfigFile(std::string configF
     std::string line;
     if(!file)
     {
-        std::cout << "Erreur lors de l'ouverture du fichier de configuration" << std::endl;
+        std::cout << "[FONCTION getIgnoredFileFromConfigFile] Erreur lors de l'ouverture du fichier de configuration" << std::endl;
         return std::vector<std::string>();
     }
     while(std::getline(file, line))

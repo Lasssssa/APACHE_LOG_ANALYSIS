@@ -1,1 +1,1 @@
-echo "yop !"
+../.././prog -t 22 -c ../../config.txt ../../anonyme.log

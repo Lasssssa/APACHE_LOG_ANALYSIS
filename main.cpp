@@ -6,10 +6,11 @@
 int main(int argc, char const *argv[])
 {
     // Création des variables pour les paramètres de la ligne de commande
-    bool hourBool, graphBool, excludeFileBool, configBool;
+    bool hourBool, graphBool, excludeFileBool, configBool, imageBool;
     // Initialisation des variables à false
     hourBool = false;
     graphBool = false;
+    imageBool = false;
     excludeFileBool = false;
 
     // Initialisation des variables à 0
@@ -50,6 +51,9 @@ int main(int argc, char const *argv[])
             configBool = true;
             config = argv[i+1];
         }
+        if(param == "-i"){
+            imageBool = true;
+        }
     }
     Utils utilsConfig;
     if(!configBool){
@@ -66,8 +70,11 @@ int main(int argc, char const *argv[])
 
     if(graphBool){
         logManager.GetStats().CreateGraph(graph);
-        string out = utilsConfig.ChangeExtensionDotInPng(graph);
-        system(("dot -Tpng -o "+ out + " " + graph).c_str());
+        if(imageBool){
+            string out = utilsConfig.ChangeExtensionDotInPng(graph);
+            system(("dot -Tpng -o "+ out + " " + graph).c_str());
+            cout << "Image générée" << endl;
+        }
     }else{
         cout << "Pas de graphique demandé" << endl;
     }

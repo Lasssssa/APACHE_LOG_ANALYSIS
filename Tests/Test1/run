@@ -1,1 +1,1 @@
-cd ../.. ./prog ./anonyme.log
+../.././prog -c ../../config.txt ../../anonyme.log

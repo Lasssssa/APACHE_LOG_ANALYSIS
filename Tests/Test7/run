@@ -1,1 +1,1 @@
-./exe
+../.././prog -c ../../config.txt ../../notExist.txt

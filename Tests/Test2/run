@@ -1,1 +1,1 @@
-cat 
+../.././prog -e -c ../../config.txt ../../anonyme.log

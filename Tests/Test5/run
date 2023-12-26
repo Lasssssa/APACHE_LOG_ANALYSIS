@@ -1,1 +1,1 @@
-cat 
+../.././prog -c ../../config.txt -g test.dot ../../exemple-mini-non-exhaustif.txt
