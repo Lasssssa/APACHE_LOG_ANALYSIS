@@ -40,6 +40,11 @@ This command represents the default functionality. You can also include options 
 - `-g file.dot`: Generate a `.dot` file to create a graph. Utilize the command `dot -Tpng -o file.png file.dot` for graph generation.
 - `-i`: When the `-g file.dot` option is active, include `-i` to directly generate the graph in `.png` format with the name specified using `-g` (e.g., file.png).
 
+# Installation with Docker
+Unfortunately, this project has not been programmed with docker, so you need to set up your Linux machine.
+
+However, it's possible that a version with docker will be released one day.
+
 ## Setup the Linux Machine 
 
 ### Update
@@ -68,9 +73,9 @@ This command represents the default functionality. You can also include options 
 
 ### Run the application
 - Move to the directory where you clone the repository
-- `cd TP3_CPP_INSA_LYON`
+- `cd APACHE_LOG_ANALYSIS`
 - `make`
 - `./prog ...`
 
-## Repertory Github :
+## Repository Github :
 https://github.com/Lasssssa/APACHE_LOG_ANALYSIS
